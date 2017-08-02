@@ -1,3 +1,12 @@
+<!--
+
+users = [array of username strings we're follwing]
+streams = {object with 2 props, users and home}
+streams.users is an object with properties for each user. 
+streams.users.shawndrost has all of shawndrost's tweets.
+
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,23 +14,42 @@
     <script src="data_generator.js"></script>
   </head>
   <body>
+
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('');
+        
 
+        $('button').on('click', function() {
         var index = streams.home.length - 1;
-        while(index >= 0){
+        while(index >= 0) {
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          // var link = $('<a>'+tweet.user+'</a>');
+          $tweet.html('<a>'+tweet.user+'</a>' + ': ' + tweet.message + tweet.created_at);
+          // $('div').wrap('<a>'+tweet.user+'</a>');
           $tweet.appendTo($body);
+          $('a').on('click', function() {
+            $($body).html('');
+            var indexUser = streams.users[tweet.user].length - 1; 
+            while(indexUser >= 0) {
+              var userStream = streams.users[tweet.user][indexUser];
+              var $tweet = $('<div></div>');
+              $tweet.html('<a>'+userStream.user+'</a>' + ': ' + userStream.message + userStream.created_at);
+              $tweet.appendTo($body);
+              indexUser -= 1;
+            }
+          });
           index -= 1;
         }
+
+        })
+
 
       });
 
     </script>
+        <button type="button">Click Me!</button>
   </body>
 </html>
