@@ -22,6 +22,10 @@ streams.users.shawndrost has all of shawndrost's tweets.
         
 
         $('button').on('click', function() {
+        $(this).css({'background-color': 'lightblue'})
+        //animate
+        //border
+        //title
         var index = streams.home.length - 1;
         while(index >= 0) {
           var tweet = streams.home[index];
@@ -29,7 +33,9 @@ streams.users.shawndrost has all of shawndrost's tweets.
           // var link = $('<a>'+tweet.user+'</a>');
           $tweet.html('<a>'+tweet.user+'</a>' + ': ' + tweet.message + tweet.created_at);
           // $('div').wrap('<a>'+tweet.user+'</a>');
+          
           $tweet.appendTo($body);
+          //$tweet.animate({'top':'10px'}, 'fast');
           $('a').on('click', function() {
             $($body).html('');
             var indexUser = streams.users[tweet.user].length - 1; 
